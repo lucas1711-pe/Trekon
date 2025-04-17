@@ -1,0 +1,19 @@
+# Ignorar arquivos e pastas do sistema
+.VirtualBox/
+.android/
+.bash_history
+.gitconfig
+.idlerc/
+.kivy/
+.lesshst
+.python_history
+.viminfo
+OneDrive/
+Pictures/
+Saved Games/
+Searches/
+Videos/
+VirtualBox VMs/
+ntuser.dat.LOG1
+ntuser.dat.LOG2
+ntuser.ini
