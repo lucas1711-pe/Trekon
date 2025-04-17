@@ -1,4 +1,4 @@
-name: Build Android APK
+name: CI – Build Android APK
 
 on:
   push:
@@ -10,23 +10,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
-          distribution: 'adopt'
           java-version: '11'
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle
 
-      - name: Build APK
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build Debug APK
         run: ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
-          name: Trekon-APK
+          name: app-debug
           path: app/build/outputs/apk/debug/app-debug.apk
